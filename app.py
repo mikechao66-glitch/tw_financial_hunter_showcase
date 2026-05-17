@@ -15,7 +15,8 @@ logger.add(sys.stderr, level="WARNING")
 
 # --- 頁面基本設定 ---
 st.set_page_config(page_title="財報獵人深度儀表板", layout="wide")
-st.title("🏹 財報獵人：全市場財報掃描系統 (此為展示版，數據會持續自動更新但手動掃描等按鈕不會作動)")
+st.title("🏹 財報獵人：全市場財報掃描系統")
+st.caption("ℹ️ 此為展示版，數據會持續自動更新但手動掃描等按鈕不會作動")
 
 # --- 系統核心設定 ---
 MY_FINMIND_TOKEN = "DEMO"
