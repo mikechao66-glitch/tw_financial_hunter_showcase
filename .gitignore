@@ -1,0 +1,13 @@
+# Python compiled files
+__pycache__/
+*.pyc
+
+# Local state and sync logs
+last_notified_time.txt
+sync_log.txt
+
+# Private Subscriber and credential files (Critical for safety!)
+subscribers.json
+
+# Local backups
+備份/
