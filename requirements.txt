@@ -4,3 +4,4 @@ numpy
 FinMind
 loguru
 requests
+tqdm
