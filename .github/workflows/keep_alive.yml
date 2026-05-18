@@ -1,0 +1,34 @@
+name: Streamlit Cloud Keep Alive
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # 每 30 分鐘自動執行一次 (UTC 時間)
+  workflow_dispatch:        # 允許手動在 GitHub Actions 頁面點選 Run workflow 測試
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 載入專案程式碼
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. 模擬訪客點擊網頁
+      - name: Ping Streamlit Webpage
+        run: |
+          curl -s -o /dev/null -w "%{http_code}" https://tw-financial-hunter-showcase.streamlit.app/
+          echo "Successfully pinged Streamlit Cloud Webpage."
+
+      # 3. 更新時間戳記
+      - name: Update keep_alive.txt
+        run: |
+          echo "Last awake check: $(date -u -d '+8 hours' '+%Y-%m-%d %H:%M:%S') (UTC+8)" > keep_alive.txt
+
+      # 4. 自動 Git commit 並 push 回 GitHub
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add keep_alive.txt
+          git commit -m "🤖 Keep Alive: Ping Streamlit and update timestamp" || exit 0
+          git push origin main
